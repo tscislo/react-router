@@ -1,0 +1,13 @@
+.characters {
+  font-size: 25px;
+}
+
+.main-container {
+  display: flex;
+}
+
+.menu {
+  overflow: auto;
+  max-height: calc(100vh);
+  min-width: 250px;
+}
