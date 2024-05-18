@@ -1,5 +1,5 @@
 import './characters.component.scss';
-import {useEffect, useReducer} from "react";
+import {useCallback, useEffect, useMemo, useReducer} from "react";
 import {getFromAPI} from "../utils.ts";
 import {Link, Outlet, useSearchParams} from "react-router-dom";
 import {CharactersActionTypes, CharactersReducer} from "./characters.state.ts";
@@ -10,7 +10,9 @@ export const CharactersComponent = () => {
         filteredCharacters: []
     });
     const [searchParams, setSearchParams] = useSearchParams();
-
+    const searchName: string = useMemo(() => searchParams.get('name') ?? '', [searchParams]);
+    const getSearchName = useCallback(() => searchName, [searchName]);
+    
     useEffect(() => {
         const controller = new AbortController();
         getFromAPI('https://hp-api.onrender.com/api/characters', controller)
@@ -23,9 +25,9 @@ export const CharactersComponent = () => {
 
     useEffect(() => dispatch({
             type: CharactersActionTypes.UPDATE_FILTER_PHRASE,
-            payload: searchParams.get('name') ?? ''
+            payload: getSearchName()
         }),
-        [searchParams.get('name')]);
+        [getSearchName, searchName]);
 
     return (
         <div className={'main-container'}>
