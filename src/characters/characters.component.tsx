@@ -1,4 +1,4 @@
-import './characters.component.scss';
+import classes from './characters.component.module.scss';
 import {useCallback, useEffect, useMemo, useReducer} from "react";
 import {getFromAPI} from "../utils.ts";
 import {Link, Outlet, useSearchParams} from "react-router-dom";
@@ -30,9 +30,9 @@ export const CharactersComponent = () => {
         [getSearchName, searchName]);
 
     return (
-        <div className={'main-container'}>
-            <menu className={'menu'}>
-                <h1 className={'characters'}>Characters</h1>
+        <div className={classes['main-container']}>
+            <menu className={classes.menu}>
+                <h1 className={classes.characters}>Characters</h1>
                 <Link to={'/'}>Home</Link>
                 <div>
                     {filteredCharacters?.length === 0 && <div>Loading...</div>}
